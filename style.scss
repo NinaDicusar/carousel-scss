@@ -1,0 +1,111 @@
+$darkColor:#333;
+$cols: 36;
+$rows: 24;
+$size:33px;
+@mixin center{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+@mixin effectfadeOut{
+    animation:fadeOut 1.5s;
+    animation-delay: .5s * random(5);
+}
+@mixin displayWH{
+    display: grid;
+    width: inherit;
+    height: inherit;
+}
+
+body{
+    background-color: $darkColor;
+     color: lawngreen;
+  
+}
+#carousel{
+width: $cols * $size;
+height: $rows * $size;
+border: $size * 0.05 solid lighten($darkColor, 10%);
+@include center;
+}
+.slide{
+    @include displayWH;
+    grid-template-columns:repeat($cols, $size) ;
+    grid-template-rows:repeat($rows, $size);
+   
+
+    // hw-1 //
+.number{
+    text-align: center;
+    line-height: $size ;
+     }
+
+    $offx: 0;
+    $offy: 0;
+
+    @for $n from 1 through $cols * $rows {
+
+        &>.number:nth-child(#{$n}) {
+            background-image: url(sun\ set.jpg);
+            background-position-x: $offx * - $size;
+            background-position-y: $offy * - $size;
+
+           @include effectfadeOut;
+            animation-fill-mode: forwards;
+    }
+      $offx: $offx + 1;
+      @if $offx % $cols == 0{
+        $offx: 0;
+        $offy: $offy + 1;
+      }
+     }
+    @keyframes fadeOut {
+        from{ opacity: 1;}
+        to{ opacity: 0;}
+    }
+}
+
+.slide-two{
+    @include displayWH;
+     background-image: url(house.jpg);
+     opacity:0 ;
+    @include center();
+    animation:effectTwo 2s ;
+    animation-delay: 2s ;
+    transition: 0.1s;
+   
+
+
+
+    @keyframes effectTwo{
+        from{ opacity: 0;}
+        to{ opacity: 1;}
+    }
+    
+}.slide-tree{
+    @include center;
+    @include displayWH; 
+    background-image: url(see\ view.jpg);
+    opacity: 0;
+    animation:effectTree 3s ;
+    animation-delay: 4s ;
+    transition: 0.1s;
+    
+
+
+    @keyframes effectTree{
+        from{ opacity: 1;}
+        to{ opacity: 0;} 
+}
+
+}
+
+
+
+ 
+
+
+   
